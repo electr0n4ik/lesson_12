@@ -1,14 +1,14 @@
 # photo show
 
-from flask import Blueprint
+from flask import Blueprint, render_template
 
-# импортируем класс блюпринта
-from flask import Blueprint
-
-# создаем блюпринт
-main_blueprint = Blueprint('main_blueprint', __name__)
+# создаем блюпринт с настройкой папки шаблонов
+main_blueprint = Blueprint(
+	'main_blueprint',
+	__name__,
+  template_folder='templates')
 
 # вьюшка, использую блюпринт вместо app
 @main_blueprint.route('/')
-def main_page(name):
-    return f"Я main страничка!"
+def main_page():
+    return render_template("index.html")
