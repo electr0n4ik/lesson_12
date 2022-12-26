@@ -19,8 +19,39 @@ def find_post(search):
     for post in get_posts():
         if search.lower() in post["content"].lower():
             list_posts.append(post)
-    # if not len(list_posts):
-    #     return "Пост не найден!"
-    # else:
-    return list_posts
+    if len(list_posts) == 0:
+        return "Пост не найден!"
+    else:
+        return list_posts
 
+
+def save_photo(filename_photo):
+    """
+    Сохранение картинки поста
+    """
+    from flask import Flask, send_from_directory
+
+    extension = filename_photo.split(".")[-1]
+    if len(extension) == 0:
+        return f"Ошибка при загрузке файла"
+    elif extension in ['jpg', 'jpeg', 'gif', 'png']:
+        return True
+    else:
+        return f"Загруженный файл - не картинка (расширение не jpeg, png, gif)"
+
+
+def save_text_in_jsonfile(filename, text):
+    """
+    Сохранение текста поста и адрес картинки в файл json
+    """
+    import json
+
+    dict = {"content": text, "pic":filename}
+    with open("posts.json", "r", encoding="utf-8") as file:
+        posts = json.load(file)
+        posts.append(dict)
+
+    with open("posts.json", "w", encoding="utf-8") as file:
+        json.dump(posts, file, ensure_ascii=False)
+
+    return True
