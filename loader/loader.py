@@ -11,7 +11,7 @@ loader_blueprint = Blueprint(
 @loader_blueprint.route("/post")
 def loader_page():
     """
-    Обработка запрос при обращении к GET /post
+    Обработка запроса при обращении к GET /post
     """
     return render_template("post_form.html")
 
@@ -19,20 +19,23 @@ def loader_page():
 @loader_blueprint.route("/post", methods=["POST"]) # запрос при обращении к POST /post
 def page_add():
     """
-    PОбработка запроса при обращении к POST /post
+    Обработка запроса при обращении к POST /post
     """
-    try: #1 обработка ошибки "Ошибка при загрузке файла"
+    import logging
+    try: # 1 обработка ошибки "Ошибка при загрузке файла"
         photo = request.files.get("picture")
         filename_photo = photo.filename
-        if save_photo(filename_photo): #2 обработка ошибки "Загруженный файл - не картинка (расширение не jpeg, png, gif)"
+        if save_photo(filename_photo): # 2 обработка ошибки "Загруженный файл - не картинка (расширение не jpeg, png, gif)"
             text = request.form["content"]
             photo.save(f"./static/uploads/{filename_photo}")
-            if save_text_in_jsonfile(filename_photo, text): #3 обработка ошибки "Файл posts.json отсутствует или не хочет превращаться в список"
+            if save_text_in_jsonfile(filename_photo, text): # 3 обработка ошибки "Файл posts.json отсутствует или не хочет превращаться в список"
                 return render_template("post_uploaded.html", picture=filename_photo, content=text)
             else:
                 return save_text_in_jsonfile(filename_photo, text)
         else:
+            logging.info("Загруженный файл - не картинка")
             return save_photo(filename_photo)
     except:
+        logging.error("Ошибка при загрузке файла")
         return "Ошибка при загрузке файла"
 

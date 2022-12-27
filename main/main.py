@@ -11,4 +11,7 @@ main_blueprint = Blueprint(
 # вьюшка, использую блюпринт вместо app
 @main_blueprint.route('/')
 def main_page():
+    """
+    Обработка запроса при обращении к /
+    """
     return render_template("index.html")
