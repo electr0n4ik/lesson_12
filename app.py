@@ -26,7 +26,10 @@ def search_page():
         return render_template("search_empty.html")
     else:
         logging.info(f"Выполнен поиск по запросу {s}") # логирование при выполнении поиска
-        return render_template("post_list.html", s=s, posts=find_post(s))
+        if type(find_post(s)) == list:
+            return render_template("post_list.html", s=s, posts=find_post(s))
+        else:
+            return find_post(s)
 
 
 @app.route("/static/<path:filename>")
@@ -36,4 +39,4 @@ def static_dir(filename):
     """
     return send_from_directory("static", filename)
 
-app.run(port=5000)
+app.run()

@@ -15,11 +15,13 @@ def find_post(search):
     """
     Получает запрос и возвращает список постов по данному запросу
     """
+
     list_posts = []
     for post in get_posts():
         if search.lower() in post["content"].lower():
             list_posts.append(post)
-    if len(list_posts) == 0:
+
+    if len(search) == 0 or len(list_posts) == 0:
         return "Пост не найден!"
     else:
         return list_posts
