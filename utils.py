@@ -24,34 +24,34 @@ def find_post(search):
     else:
         return list_posts
 
-
+# 3
 def save_photo(filename_photo):
     """
-    Сохранение картинки поста
+    Проверка картинки поста
     """
-    from flask import Flask, send_from_directory
-
     extension = filename_photo.split(".")[-1]
-    if len(extension) == 0:
-        return f"Ошибка при загрузке файла"
-    elif extension in ['jpg', 'jpeg', 'gif', 'png']:
+
+    if extension in ['jpg', 'jpeg', 'gif', 'png']:
         return True
     else:
-        return f"Загруженный файл - не картинка (расширение не jpeg, png, gif)"
+        return "Загруженный файл - не картинка (расширение не jpeg, png, gif)"
 
-
+# 4
 def save_text_in_jsonfile(filename, text):
     """
     Сохранение текста поста и адрес картинки в файл json
     """
     import json
 
-    dict = {"content": text, "pic":filename}
-    with open("posts.json", "r", encoding="utf-8") as file:
-        posts = json.load(file)
-        posts.append(dict)
+    try:
+        dict = {"content": text, "pic":filename}
+        with open("posts.json", "r", encoding="utf-8") as file:
+            posts = json.load(file)
+            posts.append(dict)
 
-    with open("posts.json", "w", encoding="utf-8") as file:
-        json.dump(posts, file, ensure_ascii=False)
+        with open("posts.json", "w", encoding="utf-8") as file:
+            json.dump(posts, file, ensure_ascii=False)
 
-    return True
+        return True
+    except:
+        return "Файл posts.json отсутствует или не хочет превращаться в список"
