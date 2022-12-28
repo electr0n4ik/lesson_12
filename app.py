@@ -32,11 +32,11 @@ def search_page():
             return find_post(s)
 
 
-@app.route("/static/<path:filename>")
+@app.route("/uploads/<path:filename>")
 def static_dir(filename):
     """
     Для отображения загруженных картинок
     """
-    return send_from_directory("static", filename)
+    return send_from_directory("uploads", filename)
 
 app.run()

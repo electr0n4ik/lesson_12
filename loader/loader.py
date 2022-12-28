@@ -27,7 +27,7 @@ def page_add():
         filename_photo = photo.filename
         if save_photo(filename_photo): # 2 обработка ошибки "Загруженный файл - не картинка (расширение не jpeg, png, gif)"
             text = request.form["content"]
-            photo.save(f"./static/uploads/{filename_photo}")
+            photo.save(f"./uploads/{filename_photo}")
             if save_text_in_jsonfile(filename_photo, text): # 3 обработка ошибки "Файл posts.json отсутствует или не хочет превращаться в список"
                 return render_template("post_uploaded.html", picture=filename_photo, content=text)
             else:
