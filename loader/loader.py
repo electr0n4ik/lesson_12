@@ -34,7 +34,7 @@ def page_add():
                 return save_text_in_jsonfile(filename_photo, text)
         else:
             logging.info("Загруженный файл - не картинка")
-            return save_photo(filename_photo)
+            return "Загруженный файл - не картинка (расширение не jpeg, png, gif)"
     except:
         logging.error("Ошибка при загрузке файла")
         return "Ошибка при загрузке файла"

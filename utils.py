@@ -36,7 +36,7 @@ def save_photo(filename_photo):
     if extension in ['jpg', 'jpeg', 'gif', 'png']:
         return True
     else:
-        return "Загруженный файл - не картинка (расширение не jpeg, png, gif)"
+        return False
 
 # 4
 def save_text_in_jsonfile(filename, text):
